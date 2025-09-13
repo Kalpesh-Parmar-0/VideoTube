@@ -1,0 +1,16 @@
+{
+  "name": "youplay",
+  "version": "1.0.0",
+  "description": "Youtube clone",
+  "keywords": [
+    "javascript",
+    "youtube"
+  ],
+  "license": "ISC",
+  "author": "Kalpesh Parmar",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
