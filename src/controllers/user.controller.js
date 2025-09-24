@@ -163,7 +163,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     await User.findByIdAndUpdate(
         req.user._id,
         {
-            $set: { refreshToken: undefined }
+            $unset: { refreshToken: 1 }
         },
         {
             new: true
@@ -210,16 +210,16 @@ const refreshBothToken = asyncHandler(async (req, res) => {
             secure: true
         }
 
-        const { accessToken, newRefreshAccessToken } = await generateAccessAndRefreshTokens(user._id)
+        const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id)
 
         return res
             .status(200)
             .cookie("accessToken", accessToken, options)
-            .cookie("refreshToken", newRefreshAccessToken, options)
+            .cookie("refreshToken", refreshToken, options)
             .json(
                 new ApiResponse(
                     200,
-                    { accessToken, refreshAccessToken: newRefreshAccessToken },
+                    { accessToken, refreshToken },
                     "AccessToken refreshed"
                 )
             )
@@ -249,7 +249,7 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 })
 
 const getCurrentUser = asyncHandler(async (req, res) => {
-    return res.status(200).json(200, req.user, "Current user fetched successfully")
+    return res.status(200).json(new ApiResponse(200, req.user, "Current user fetched successfully"))
 })
 
 const updateAccountDetails = asyncHandler(async (req, res) => {
@@ -445,8 +445,8 @@ const getWatchHistory = asyncHandler(async (req, res) => {
     ])
 
     return res
-    .status(200)
-    .json(new ApiResponse(200, user[0].watchHistory, "Watch History fatched successfully"))
+        .status(200)
+        .json(new ApiResponse(200, user[0].watchHistory, "Watch History fatched successfully"))
 })
 
 export {

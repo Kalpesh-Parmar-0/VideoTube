@@ -37,7 +37,9 @@ router.route("/login").post(loginUser)
 router.route("/logout").post(varifyJWT, logoutUser)
 router.route("/refresh-tokens").post(refreshBothToken)
 router.route("/change-password").post(varifyJWT, changeCurrentPassword)
+
 router.route("/current-user").get(varifyJWT, getCurrentUser)
+
 router.route("/update-account").patch(varifyJWT, updateAccountDetails)
 
 router.route("/avatar").patch(varifyJWT, upload.single("avatar"), updateUserAvatar)
