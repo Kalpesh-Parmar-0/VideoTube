@@ -95,6 +95,11 @@ const getAllVideos = asyncHandler(async (req, res) => {
         .json(new ApiResponse(200, video, "Videos fetched successfully"))
 })
 
+const publishAVideo = asyncHandler(async(req,res) => {
+    const {title, description} = req.body
+})
+
 export {
-    getAllVideos
+    getAllVideos,
+    publishAVideo
 }
