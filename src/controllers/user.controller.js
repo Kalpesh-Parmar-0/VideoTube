@@ -295,7 +295,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Error while uploding avatar on cloudinary")
     }
 
-    const user = await user.findById(req.user._id).select("avatar")
+    const user = await User.findById(req.user._id).select("avatar")
 
     const avatarToDelete = user.avatar.public_id
 

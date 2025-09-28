@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { varifyJWT } from "../middlewares/auth.middleware.js";
-import { getAllVideos } from "../controllers/video.controller.js";
+import { 
+    getAllVideos,
+    publishAVideo
+} from "../controllers/video.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 
 const router = Router()
