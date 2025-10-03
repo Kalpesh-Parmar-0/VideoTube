@@ -1,20 +1,21 @@
 import { Router } from "express";
-import { varifyJWT } from "../middlewares/auth.middleware.js";
-import { 
+import { verifyJWT } from "../middlewares/auth.middleware.js";
+import {
     getAllVideos,
-    publishAVideo
+    publishAVideo,
+    getVideoById
 } from "../controllers/video.controller.js";
 import { upload } from "../middlewares/multer.middleware.js";
 
 const router = Router()
-router.use(varifyJWT) // app this middleware for all routes
+router.use(verifyJWT) // app this middleware for all routes
 
 router
     .route("/")
     .get(getAllVideos)
 
     .post(
-        varifyJWT,
+        verifyJWT,
         upload.fields([
             {
                 name: "videoFile",
@@ -27,5 +28,9 @@ router
         ]),
         publishAVideo
     )
+
+router
+    .route("/video/:videoId")
+    .get(verifyJWT, getVideoById)
 
 export default router
