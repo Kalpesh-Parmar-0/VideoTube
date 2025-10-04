@@ -1,11 +1,12 @@
 import { Router } from "express";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { upload } from "../middlewares/multer.middleware.js";
 import {
     getAllVideos,
     publishAVideo,
-    getVideoById
+    getVideoById,
+    deleteVideo
 } from "../controllers/video.controller.js";
-import { upload } from "../middlewares/multer.middleware.js";
 
 const router = Router()
 router.use(verifyJWT) // app this middleware for all routes
@@ -32,5 +33,6 @@ router
 router
     .route("/video/:videoId")
     .get(verifyJWT, getVideoById)
+    .delete(verifyJWT, deleteVideo)
 
 export default router
