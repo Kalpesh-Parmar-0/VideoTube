@@ -5,7 +5,8 @@ import { MdOutlineSubscriptions, MdHistory } from "react-icons/md";
 import { PiUserSquareThin } from "react-icons/pi";
 import { IoGameControllerOutline } from "react-icons/io5";
 import { AiOutlineLike } from "react-icons/ai";
-import { FaCediSign, FaChevronRight } from "react-icons/fa6";
+
+
 import { FaYoutube } from "react-icons/fa";
 import { SiYoutubestudio } from "react-icons/si";
 import { SiYoutubekids } from "react-icons/si";
@@ -15,14 +16,13 @@ import { SiTrendmicro } from "react-icons/si";
 import { HiOutlineShoppingBag } from "react-icons/hi2";
 import { PiFilmSlateLight } from "react-icons/pi";
 import { CgMediaLive } from "react-icons/cg";
-import { SiYoutubegaming } from "react-icons/si";
 import { FaRegNewspaper } from "react-icons/fa";
 import { TfiCup } from "react-icons/tfi";
 import { PiLightbulbLight } from "react-icons/pi";
 import { SiStylelint } from "react-icons/si";
 import { MdPodcasts } from "react-icons/md";
 import { BiVideo } from "react-icons/bi";
-import { GiLinkedRings } from "react-icons/gi";
+import SidebarSection from "./SidebarSection";
 
 function Sidebar() {
 
@@ -159,70 +159,29 @@ function Sidebar() {
 
     return (
         <div className="w-[13%] h-[calc(100vh-6.625rem)] overflow-y-scroll overflow-x-hidden ml-2">
-            <div className="space-y-2 items-center">
-                {homeItems.map((item) => {
-                    return (
-                        <div key={item.id} className="flex items-center space-x-6 hover:bg-gray-300 duration-300 rounded-xl p-1">
-                            <div className="text-xl cursor-pointer">{item.icon}</div>
-                            <span className="cursor-pointer">{item.name}</span>
-                        </div>
-                    )
-                })}
+
+            <SidebarSection items={homeItems} />
+            <hr className="my-3" />
+
+            <SidebarSection title="You" items={youItems} showArrow />
+            <hr className="my-3" />
+
+            <SidebarSection title="Explore" items={exploreItems} />
+            <hr className="my-3" />
+
+            <SidebarSection title="More from VideoTube" items={moreItems} />
+            <hr className="my-3" />
+
+            <div className="px-2 text-xs text-gray-600 font-semibold space-y-2">
+                <p>
+                    About press copyright <br /> Contact us creators <br /> Advertise
+                    developers
+                </p>
+                <p className="mt-3">
+                    Privacy Policy, Safety, Terms & Condition
+                </p>
+                <p className="text-gray-500 mt-3">@ copyright 2025</p>
             </div>
-            <br />
-            <hr />
-
-            <div className="mt-4 space-y-2 items-center">
-                <div className="flex items-center space-x-2">
-                    <h1 className="font-semibold">You</h1>
-                    <FaChevronRight />
-                </div>
-                {youItems.map((item) => (
-                    <div key={item.id} className="flex items-center space-x-6 hover:bg-gray-300 duration-300 rounded-xl p-1">
-                        <div className="text-xl cursor-pointer">{item.icon}</div>
-                        <span className="cursor-pointer">{item.name}</span>
-                    </div>
-                ))}
-            </div>
-
-            <br />
-            <hr />
-
-            <div className="mt-4 space-y-2 items-center">
-                <div className="flex items-center space-x-2">
-                    <h1 className="font-semibold">Explore</h1>
-                </div>
-                {exploreItems.map((item) => (
-                    <div key={item.id} className="flex items-center space-x-6 hover:bg-gray-300 duration-300 rounded-xl p-1">
-                        <div className="text-xl cursor-pointer">{item.icon}</div>
-                        <span className="cursor-pointer">{item.name}</span>
-                    </div>
-                ))}
-            </div>
-
-            <br />
-            <hr />
-
-            <div className="mt-4 space-y-2 items-center">
-                <div className="flex items-center space-x-2">
-                    <h1 className="font-semibold">More from VideoTube</h1>
-                </div>
-                {moreItems.map((item) => (
-                    <div key={item.id} className="flex items-center space-x-6 hover:bg-gray-300 duration-300 rounded-xl p-1">
-                        <div className="text-xl cursor-pointer">{item.icon}</div>
-                        <span className="cursor-pointer">{item.name}</span>
-                    </div>
-                ))}
-                <hr />
-            </div>
-            <br />
-
-            <span className="text-xs text-gray-600 font-semibold">
-                About press copyright <br /> Contect us creators <br /> Advertise developers <br />
-                <p className="mt-3">Privacy Policy, safty, Terms & condition</p>
-            </span>
-            <br />
-            <p className="text-xs text-gray-500 mt-3">@ copyright 2025</p>
         </div>
     )
 }

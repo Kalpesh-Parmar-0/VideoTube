@@ -5,7 +5,7 @@ import Sidebar from './components/Sidebar'
 
 function Layout() {
     return (
-        <>
+        <div className='h-[100vh]'>
             <Navbar />
             <div>
                 <div>
@@ -15,7 +15,7 @@ function Layout() {
                     <Outlet />
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
