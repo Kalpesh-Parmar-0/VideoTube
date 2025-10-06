@@ -5,38 +5,65 @@ import toast from 'react-hot-toast';
 
 const initialState = {
     status: false,
-    userData: null
+    userData: null,
+    accessToken: null,
+    refreshToken: null,
 };
 
-const createAccount = createAsyncThunk("user/register", async (data) => {
+export const createAccount = createAsyncThunk("register", async (data) => {
     try {
-        const res = await axiosInstance.post("users/register", data)
-        toast.success(res.data.data.message) // may be true is toat.success(res.data.message)
-        return res.data.data
+        const res = await axiosInstance.post("/users/register", data)
+        // toast.success(res.data.data.message) // may be true is toat.success(res.data.message)
+        console.log(res.data);
+        return res.data
     } catch (error) {
-        toast.error(error?.response?.data?.message)
+        toast.error(error?.response?.data?.error)
         throw error
     }
 })
 
-const userLogin = createAsyncThunk("user/login", async (data) => {
+export const userLogin = createAsyncThunk("login", async (data) => {
     try {
-        const res = await axiosInstance.post("users/login", data)
-        toast.success(res.data.data.message)
-        return res.data.data
+        const res = await axiosInstance.post("/users/login", data)
+        // toast.success(res.data.data.message)
+        console.log(res.data);
+        return res.data
     } catch (error) {
-        toast.error(error?.response?.data?.message)
+        toast.error(error?.response?.data?.error)
         throw error
     }
 })
 
-const userLogout = createAsyncThunk("user/logout", async () => {
+export const userLogout = createAsyncThunk("logout", async () => {
     try {
-        const res = await axiosInstance.post("users/logout")
-        toast.success(res.data.data.message)
-        return res.data.data
+        const res = await axiosInstance.post("/users/logout")
+        // toast.success(res.data.data.message)
+        return res.data
     } catch (error) {
-        toast.error(error?.response?.data?.message)
+        toast.error(error?.response?.data?.error)
+        throw error
+    }
+})
+
+export const refreshAccessToken = createAsyncThunk("refreshAccessToken", async (data) => {
+    try {
+        const res = await axiosInstance.post("/users/refresh-token", data)
+        // console.log(res.data);
+        return res.data
+    } catch (error) {
+        toast.error(error?.response?.data?.error)
+        throw error
+    }
+})
+
+export const changePassword = createAsyncThunk("changePassword", async (data) => {
+    try {
+        const res = await axiosInstance.post("/users/change-password", data)
+        toast.success(res.data.data)
+        // console.log(res.data);
+        return res.data
+    } catch (error) {
+        toast.error(error?.response?.data?.error)
         throw error
     }
 })
@@ -44,28 +71,18 @@ const userLogout = createAsyncThunk("user/logout", async () => {
 const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {
-        updateUser: (state, action) => {
-            state.status = true
-            state.userData = action.payload
-        }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(createAccount.fulfilled, (state, action) => {
-                state.status = true
-                state.userData = action.payload
-            })
             .addCase(userLogin.fulfilled, (state, action) => {
                 state.status = true
-                state.userData = action.payload
-            })
-            .addCase(userLogout.fulfilled, (state) => {
-                state.status = true
-                state.userData = null
-            })
+                state.userData = action.payload.data.user
+                state.accessToken = action.payload.data.accessToken
+                state.refreshToken = action.payload.data.refreshToken
+            }
+            )
     }
 })
 
-export const { updateUser } = authSlice.actions
-export default authSlice
+// export const { updateUser } = authSlice.actions
+export default authSlice.reducer;
