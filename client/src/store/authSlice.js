@@ -68,6 +68,11 @@ export const changePassword = createAsyncThunk("changePassword", async (data) =>
     }
 })
 
+export const getCurrentUser = createAsyncThunk("getCurrentUser", async () => {
+    const res = await axiosInstance.get("/users/current-user");
+    return res.data.data;
+})
+
 const authSlice = createSlice({
     name: "auth",
     initialState,
