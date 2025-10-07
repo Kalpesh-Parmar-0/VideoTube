@@ -4,18 +4,20 @@ import Layout from './Layout'
 import HomePage from './pages/HomePage'
 import Login from './components/Login'
 import { Toaster } from 'react-hot-toast'
+import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
+
 // import Navbar from './components/Navbar'
 
 function App() {
+  const { isLoginModalOpen } = useSelector((state) => state.ui)
 
   return (
     <>
+      {isLoginModalOpen && <Login />}
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route path='' element={<HomePage />} />
-        </Route>
-        <Route path='/login' element={<Login />}>
         </Route>
       </Routes>
 
