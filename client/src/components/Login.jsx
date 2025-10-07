@@ -71,21 +71,21 @@ function Login() {
         )}
 
         <Input label={formState === 'login' ? "Username or Email:" : "Username:"} type="text" placeholder={formState === 'login' ? "username or email" : "username"}
-          {...register("username", { required: "Username is required" })}
+          {...register("username", { required: true })}
         />
         {errors.username && <span className="text-red-500">{errors.username.message}</span>}
 
         {formState === "register" && (
           <>
             <Input label="Email:" type="email" placeholder="example@gmail.com"
-              {...register("email", { required: "Email is required" })}
+              {...register("email", { required: true })}
             />
             {errors.email && <span className="text-red-500">{errors.email.message}</span>}
           </>
         )}
 
         <Input label="Password:" type="password" placeholder="password"
-          {...register("password", { required: "Password is required" })}
+          {...register("password", { required: true })}
         />
         {errors.password && <span className="text-red-500">{errors.password.message}</span>}
 

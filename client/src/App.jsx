@@ -1,16 +1,22 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Layout from './Layout'
 import HomePage from './pages/HomePage'
 import Login from './components/Login'
 import { Toaster } from 'react-hot-toast'
 import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { getCurrentUser } from './store/authSlice'
 
 // import Navbar from './components/Navbar'
 
 function App() {
+  const dispatch = useDispatch()
   const { isLoginModalOpen } = useSelector((state) => state.ui)
+
+  useEffect(() => {
+    dispatch(getCurrentUser())
+  }, [dispatch])
 
   return (
     <>

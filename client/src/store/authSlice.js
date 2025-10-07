@@ -4,6 +4,7 @@ import toast from 'react-hot-toast';
 
 
 const initialState = {
+    loading: false,
     status: false,
     userData: null,
     accessToken: null,
@@ -70,7 +71,7 @@ export const changePassword = createAsyncThunk("changePassword", async (data) =>
 
 export const getCurrentUser = createAsyncThunk("getCurrentUser", async () => {
     const res = await axiosInstance.get("/users/current-user");
-    return res.data.data;
+    return res.data;
 })
 
 const authSlice = createSlice({
@@ -78,14 +79,36 @@ const authSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder
-            .addCase(userLogin.fulfilled, (state, action) => {
-                state.status = true
-                state.userData = action.payload.data.user
-                state.accessToken = action.payload.data.accessToken
-                state.refreshToken = action.payload.data.refreshToken
-            }
-            )
+        builder.addCase(userLogin.pending, (state) => {
+            state.loading = true
+        })
+
+        builder.addCase(userLogin.fulfilled, (state, action) => {
+            state.loading = false
+            state.status = true
+            state.userData = action.payload.data.user
+        })
+
+        builder.addCase(userLogout.pending, (state) => {
+            state.loading = true
+        })
+
+        builder.addCase(userLogout.fulfilled, (state) => {
+            state.loading = false
+            state.status = false
+            state.userData = null
+        })
+
+        builder.addCase(getCurrentUser.fulfilled, (state, action) => {
+            state.status = true
+            state.userData = action.payload.data
+        })
+
+        builder.addCase(getCurrentUser.rejected, (state) => {
+            state.status = false
+            state.userData = null
+        })
+
     }
 })
 
