@@ -28,9 +28,11 @@ export const userLogin = createAsyncThunk("login", async (data) => {
         const res = await axiosInstance.post("/users/login", data)
         // toast.success(res.data.data.message)
         console.log(res.data);
-        return res.data
+        return res.data.data
     } catch (error) {
-        toast.error(error?.response?.data?.error)
+        toast.error(error?.response?.data?.message || error?.message)
+        console.log(error.message);
+
         throw error
     }
 })
@@ -46,13 +48,18 @@ export const userLogout = createAsyncThunk("logout", async () => {
     }
 })
 
-export const refreshAccessToken = createAsyncThunk("refreshAccessToken", async (data) => {
+export const refreshAccessToken = createAsyncThunk("refreshAccessToken", async (_, { getState }) => {
+    const { refreshToken } = getState().auth;
+    if (!refreshToken) {
+        throw new Error("No refresh token available")
+    }
     try {
-        const res = await axiosInstance.post("/users/refresh-token", data)
+        const res = await axiosInstance.post("/users/refresh-token")
         // console.log(res.data);
         return res.data
     } catch (error) {
-        toast.error(error?.response?.data?.error)
+        // toast.error(error?.response?.data?.error)
+        console.log("Failed to refresh access token", error);
         throw error
     }
 })
@@ -69,9 +76,25 @@ export const changePassword = createAsyncThunk("changePassword", async (data) =>
     }
 })
 
-export const getCurrentUser = createAsyncThunk("getCurrentUser", async () => {
-    const res = await axiosInstance.get("/users/current-user");
-    return res.data;
+export const getCurrentUser = createAsyncThunk("getCurrentUser", async (_, { rejectWithValue }) => {
+    try {
+        const res = await axiosInstance.get("/users/current-user");
+        return res.data;
+    } catch (error) {
+        console.log("User is not logged in");
+        return rejectWithValue(error.response.data)
+    }
+})
+
+export const refreshAndFetchUser = createAsyncThunk("auth/refreshAndFetchUser", async (_, { dispatch, rejectWithValue }) => {
+    try {
+        await dispatch(refreshAccessToken()).unwrap()
+
+        const user = await dispatch(getCurrentUser()).unwrap()
+        return user
+    } catch (error) {
+        return rejectWithValue(error.message)
+    }
 })
 
 const authSlice = createSlice({
@@ -86,7 +109,9 @@ const authSlice = createSlice({
         builder.addCase(userLogin.fulfilled, (state, action) => {
             state.loading = false
             state.status = true
-            state.userData = action.payload.data.user
+            state.userData = action.payload.user
+            state.accessToken = action.payload.accessToken
+            state.refreshToken = action.payload.refreshToken
         })
 
         builder.addCase(userLogout.pending, (state) => {
@@ -99,14 +124,41 @@ const authSlice = createSlice({
             state.userData = null
         })
 
+        builder.addCase(getCurrentUser.pending, (state) => {
+            state.loading = true
+        })
+
         builder.addCase(getCurrentUser.fulfilled, (state, action) => {
+            state.loading = false
             state.status = true
             state.userData = action.payload.data
         })
 
         builder.addCase(getCurrentUser.rejected, (state) => {
+            state.loading = false
             state.status = false
             state.userData = null
+        })
+
+        builder.addCase(refreshAndFetchUser.pending, (state) => {
+            state.loading = true
+        })
+
+        builder.addCase(refreshAndFetchUser.fulfilled, (state, action) => {
+            state.loading = false
+            state.status = true
+            state.userData = action.payload.data
+        })
+
+        builder.addCase(refreshAndFetchUser.rejected, (state) => {
+            state.loading = false
+            state.status = false
+            state.userData = null
+        })
+
+        builder.addCase(refreshAccessToken.fulfilled, (state, action) => {
+            state.accessToken = action.payload.data.accessToken
+            state.refreshToken = action.payload.data.refreshToken
         })
 
     }

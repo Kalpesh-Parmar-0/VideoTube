@@ -145,7 +145,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        // secure: true
     }
 
     return res
@@ -178,7 +178,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 
     const options = {
         httpOnly: true,
-        secure: true
+        // secure: true
     }
 
     return res
@@ -189,7 +189,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 })
 
 const refreshBothToken = asyncHandler(async (req, res) => {
-    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
+    const incomingRefreshToken = req?.cookies?.refreshToken || req.body.refreshToken
 
     if (!incomingRefreshToken) {
         throw new ApiError(401, "Unautorized request")
@@ -201,7 +201,7 @@ const refreshBothToken = asyncHandler(async (req, res) => {
             process.env.REFRESH_TOKEN_SECRET
         )
 
-        const user = await User.findById(decodedToken?._id)
+        const user = await User.findById(decodedToken?._id).select("+refreshToken")
 
         if (!user) {
             throw new ApiError(401, "Invalid refresh token")
@@ -213,7 +213,7 @@ const refreshBothToken = asyncHandler(async (req, res) => {
 
         const options = {
             httpOnly: true,
-            secure: true
+            // secure: true
         }
 
         const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id)

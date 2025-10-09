@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { openLoginModal } from '../store/uiSlice';
 import { userLogout } from '../store/authSlice';
 
-import logo from "../../public/logo.png"
+import logo from "/logo.png"
 
 function Navbar() {
 
@@ -50,7 +50,7 @@ function Navbar() {
             <RiVideoAddLine className='text-2xl cursor-pointer' />
             <AiOutlineBell className='text-2xl cursor-pointer' />
             <div className='relative'>
-              <img src={userData?.avatar} alt="userData?.username" className='w-8 h-8 rounded-full cursor-pointer' onClick={setProfileMenuOpen(prev => !prev)} />
+              <img src={userData?.avatar?.url} alt={userData?.username} className='w-8 h-8 rounded-full cursor-pointer' onClick={() => setProfileMenuOpen(prev => !prev)} />
 
               {profileMenuOpen && (
                 <div className='absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50'>

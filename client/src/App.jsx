@@ -5,7 +5,7 @@ import HomePage from './pages/HomePage'
 import Login from './components/Login'
 import { Toaster } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
-import { getCurrentUser } from './store/authSlice'
+import { refreshAndFetchUser } from './store/authSlice'
 
 // import Navbar from './components/Navbar'
 
@@ -14,7 +14,7 @@ function App() {
   const { isLoginModalOpen } = useSelector((state) => state.ui)
 
   useEffect(() => {
-    dispatch(getCurrentUser())
+    dispatch(refreshAndFetchUser())
   }, [dispatch])
 
   return (

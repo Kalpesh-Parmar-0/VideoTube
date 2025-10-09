@@ -20,8 +20,8 @@ function Login() {
       let res;
       if (formState === "login") {
         const isEmail = data.username.includes('@')
-        const loginData = isEmail ? { email: data.username, password: data.password } : data
-        res = await dispatch(userLogin(loginData))
+        const loginData = isEmail ? { email: data.username, password: data.password } : { username: data.username, password: data.password }
+        res = await dispatch(userLogin(loginData)).unwrap()
       } else {
         const formData = new FormData()
         formData.append("fullName", data.fullName)
@@ -31,11 +31,11 @@ function Login() {
         if (data.avatar[0]) {
           formData.append("avatar", data.avatar[0])
         }
-        res = await dispatch(createAccount(formData))
+        res = await dispatch(createAccount(formData)).unwrap()
       }
       if (res) {
         toast.success(`User ${formState === "login" ? "logged in" : "registered"} successfully!`)
-        await dispatch(getCurrentUser())
+        // await dispatch(getCurrentUser())
         dispatch(closeLoginModal())
         navigation("/")
       }
@@ -95,7 +95,7 @@ function Login() {
           />
         )}
 
-        <button type='submit' className="bg-blue-700 hover:bg-blue-800 transition-all text-white w-full py-2 rounded-md cursor-pointer">
+        <button type='submit' className="bg-blue-600 hover:bg-blue-800 transition-all text-white w-full py-2 rounded-md cursor-pointer">
           {formState === "login" ? "Login" : "Create Account"}
         </button>
 

@@ -5,7 +5,7 @@ import Sidebar from './components/Sidebar'
 
 function Layout() {
     return (
-        <div className='h-[100vh]'>
+        <div className='min-h-screen overflow-auto h-[100vh]'>
             <Navbar />
             <div>
                 <div>
