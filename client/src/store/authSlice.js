@@ -16,7 +16,7 @@ export const createAccount = createAsyncThunk("register", async (data) => {
         const res = await axiosInstance.post("/users/register", data)
         // toast.success(res.data.data.message) // may be true is toat.success(res.data.message)
         console.log(res.data);
-        return res.data
+        return res.data.data
     } catch (error) {
         toast.error(error?.response?.data?.error)
         throw error
@@ -48,11 +48,7 @@ export const userLogout = createAsyncThunk("logout", async () => {
     }
 })
 
-export const refreshAccessToken = createAsyncThunk("refreshAccessToken", async (_, { getState }) => {
-    const { refreshToken } = getState().auth;
-    if (!refreshToken) {
-        throw new Error("No refresh token available")
-    }
+export const refreshAccessToken = createAsyncThunk("refreshAccessToken", async () => {
     try {
         const res = await axiosInstance.post("/users/refresh-token")
         // console.log(res.data);
@@ -102,6 +98,18 @@ const authSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
+        builder.addCase(createAccount.pending, (state) => {
+            state.loading = true
+        })
+
+        builder.addCase(createAccount.fulfilled, (state, action) => {
+            state.loading = false
+            state.status = true
+            state.userData = action.payload.user
+            state.accessToken = action.payload.accessToken
+            state.refreshToken = action.payload.refreshToken
+        })
+
         builder.addCase(userLogin.pending, (state) => {
             state.loading = true
         })
