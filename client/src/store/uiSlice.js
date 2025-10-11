@@ -19,3 +19,5 @@ const uiSlice = createSlice({
 
 export const { openLoginModal, closeLoginModal } = uiSlice.actions;
 export default uiSlice.reducer;
+
+// this file is for UI mainly login related actions like login component show or not.

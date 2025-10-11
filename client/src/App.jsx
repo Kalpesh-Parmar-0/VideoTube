@@ -6,6 +6,7 @@ import Login from './components/Login'
 import { Toaster } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { refreshAndFetchUser } from './store/authSlice'
+import MyChannel from './pages/MyChannel'
 
 // import Navbar from './components/Navbar'
 
@@ -23,6 +24,12 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route path='' element={<HomePage />} />
+          <Route path='/my-content' element={<MyChannel />}>
+            <Route path='videos' element='' />
+            <Route path='playlists' element='' />
+            <Route path='tweets' element='' />
+            <Route path='subscribed' element='' />
+          </Route>
         </Route>
       </Routes>
 
@@ -44,3 +51,5 @@ function App() {
 }
 
 export default App
+
+// todo: Channel.jsx complete

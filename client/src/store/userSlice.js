@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axiosInstance from './helpers/axiosInstance';
+import axiosInstance from "../helpers/axiosInstance";
 import toast from 'react-hot-toast';
 
 const initialState = {
@@ -35,4 +35,6 @@ const userSlice = createSlice({
     }
 })
 
-export default userSlice = userSlice.reducer;
+export default userSlice.reducer;
+
+// this file is for user's channel related actions.

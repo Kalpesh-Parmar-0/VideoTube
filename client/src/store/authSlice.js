@@ -174,3 +174,5 @@ const authSlice = createSlice({
 
 // export const { updateUser } = authSlice.actions
 export default authSlice.reducer;
+
+// this file is mainly for authentication related actions.
