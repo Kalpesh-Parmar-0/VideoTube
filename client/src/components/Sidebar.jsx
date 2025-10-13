@@ -49,6 +49,7 @@ function Sidebar() {
             id: 1,
             name: "Your Channel",
             icon: <PiUserSquareThin />,
+            path: "/my-content"
         },
         {
             id: 2,

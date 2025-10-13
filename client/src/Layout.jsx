@@ -5,13 +5,11 @@ import Sidebar from './components/Sidebar'
 
 function Layout() {
     return (
-        <div className='min-h-screen overflow-auto h-[100vh]'>
+        <div className='h-screen flex flex-col'>
             <Navbar />
-            <div>
-                <div>
-                    <Sidebar />
-                </div>
-                <div>
+            <div className='flex flex-1'>
+                <Sidebar />
+                <div className='flex-1 overflow-y-auto'>
                     <Outlet />
                 </div>
             </div>
