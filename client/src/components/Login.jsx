@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form'
 import { Input } from './index'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { userLogin, getCurrentUser, createAccount } from '../store/authSlice'
+import { userLogin, getCurrentUser, createAccount } from '../store/slices/authSlice'
 import { toast } from 'react-hot-toast'
-import { closeLoginModal } from '../store/uiSlice';
+import { closeLoginModal } from '../store/slices/uiSlice';
 
 function Login() {
 

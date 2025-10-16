@@ -31,6 +31,7 @@ function Sidebar() {
             id: 1,
             name: "Home",
             icon: <GoHome />,
+            path: "/"
         },
         {
             id: 2,

@@ -6,8 +6,8 @@ import { RiVideoAddLine } from "react-icons/ri";
 import { CgProfile } from "react-icons/cg";
 import Button from './Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { openLoginModal } from '../store/uiSlice';
-import { userLogout } from '../store/authSlice';
+import { openLoginModal } from '../store/slices/uiSlice';
+import { userLogout } from '../store/slices/authSlice';
 
 import logo from "/logo.png"
 

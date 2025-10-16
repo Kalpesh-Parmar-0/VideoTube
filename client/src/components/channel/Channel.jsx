@@ -9,6 +9,7 @@ function Channel({
     fullName,
     subscribersCount,
     subscribedCount,
+    children,
 }) {
     return (
         <div className='h-full m-5 overflow-x-hidden'>
@@ -43,20 +44,24 @@ function Channel({
             <section className='w-150 flex justify-evenly items-center border-b-2 border-slate-300 text-sm sm:text-base sm:mt-4 md:mt-0 mt-2'>
                 <NavLink
                     to={"/my-content/videos"}
-                    className={({ isActive }) => isActive ? 'font-bold border-b-2' : 'text-stone-400'}
+                    className={({ isActive }) => isActive ? 'border-b-2' : 'text-stone-400'}
                 >Videos</NavLink>
                 <NavLink
                     to={"/my-content/playlists"}
-                    className={({ isActive }) => isActive ? 'font-bold border-b-2' : 'text-stone-400'}
+                    className={({ isActive }) => isActive ? 'border-b-2' : 'text-stone-400'}
                 >Playlists</NavLink>
                 <NavLink
                     to={"/my-content/subscribed"}
-                    className={({ isActive }) => isActive ? 'bfont-bold border-b-2' : 'text-stone-400'}
+                    className={({ isActive }) => isActive ? 'border-b-2' : 'text-stone-400'}
                 >Subscribed</NavLink>
                 <NavLink
                     to={"/my-content/tweets"}
-                    className={({ isActive }) => isActive ? 'font-bold border-b-2' : 'text-stone-400'}
+                    className={({ isActive }) => isActive ? 'border-b-2' : 'text-stone-400'}
                 >Tweets</NavLink>
+            </section>
+
+            <section>
+                {children}
             </section>
 
         </div>
