@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Channel } from "../components/index"
+import { ChannelHeader } from "../components/index"
 import { useDispatch, useSelector } from 'react-redux'
 import { userChannelProfile } from '../store/slices/userSlice'
 
@@ -17,7 +17,7 @@ function MyChannel() {
 
     return (
         <div>
-            <Channel
+            <ChannelHeader
                 username={channel?.username}
                 coverImage={profile?.coverImage.url}
                 avatar={profile?.avatar.url}
@@ -26,7 +26,7 @@ function MyChannel() {
                 subscribersCount={profile?.subscribersCount || 0}
             >
 
-            </Channel>
+            </ChannelHeader>
         </div>
     )
 }

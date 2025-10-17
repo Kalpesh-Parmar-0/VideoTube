@@ -44,10 +44,11 @@ const getAllVideos = asyncHandler(async (req, res) => {
                 owner: new mongoose.Types.ObjectId(userId)
             }
         })
+    } else {
+        // fetch videos only that are set isPublished as true
+        pipeline.push({ $match: { isPublished: true } })
     }
 
-    // fetch videos only that are set isPublished as true
-    pipeline.push({ $match: { isPublished: true } })
 
     //sortBy can be views, createdAt, duration
     //sortType can be ascending(-1) or descending(1)

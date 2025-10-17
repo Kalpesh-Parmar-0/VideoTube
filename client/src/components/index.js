@@ -3,7 +3,7 @@ import Container from './Container';
 import Input from './Input';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar'
-import Channel from './channel/Channel';
+import ChannelHeader from './channel/ChannelHeader';
 import VideoList from './VideoList';
 
 export {
@@ -12,6 +12,6 @@ export {
     Input,
     Navbar,
     Sidebar,
-    Channel,
+    ChannelHeader,
     VideoList
 }

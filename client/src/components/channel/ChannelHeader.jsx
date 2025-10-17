@@ -2,14 +2,13 @@ import React from 'react'
 import { Button } from '../index'
 import { NavLink } from 'react-router-dom'
 
-function Channel({
+function ChannelHeader({
     coverImage,
     avatar,
     username,
     fullName,
     subscribersCount,
     subscribedCount,
-    children,
 }) {
     return (
         <div className='h-full m-5 overflow-x-hidden'>
@@ -59,13 +58,8 @@ function Channel({
                     className={({ isActive }) => isActive ? 'border-b-2' : 'text-stone-400'}
                 >Tweets</NavLink>
             </section>
-
-            <section>
-                {children}
-            </section>
-
         </div>
     )
 }
 
-export default Channel
+export default ChannelHeader
