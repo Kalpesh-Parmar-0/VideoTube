@@ -9,7 +9,7 @@ const initialState = {
 
 export const getAllVideos = createAsyncThunk("getVideos", async ({ userId, sortBy, sortType, query, page, limit }) => {
     try {
-        const baseURL = "http://localhost:3000/api/v1/video"
+        const baseURL = "http://localhost:3000/api/v1/videos"
         const url = new URL(baseURL)
 
         if (userId) url.searchParams.set("userId", userId)

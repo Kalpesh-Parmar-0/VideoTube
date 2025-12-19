@@ -1,28 +1,30 @@
 import React from 'react'
-import { timeAgo } from '../helpers/timeAgo'
+import { formateDuration, timeAgo } from '../helpers/timeAgo'
+import { Link } from 'react-router-dom'
 
 function VideoList({
     thumbnail,
     duration,
     title,
-    views,
+    views = 0,
     avatar,
     channelName,
-    description,
     createdAt,
+    channelId
 }) {
     return (
         <>
             <div>
                 <div>
                     <img src={thumbnail} alt="" />
-                    <span>{Math.floor(duration)}</span>
+                    <span>{formateDuration(duration)}</span>
                 </div>
 
                 <div>
-                    {avatar && (
+                    <Link to={`/${channelId}`}>
                         <img src={avatar} alt="" />
-                    )}
+
+                    </Link>
 
                     <div>
                         <h2>{title}</h2>
