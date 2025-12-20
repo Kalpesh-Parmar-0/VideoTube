@@ -27,9 +27,9 @@ function App() {
           <Route path='' element={<HomePage />} />
           <Route path='/my-content' element={<MyChannel />}>
             <Route path='videos' element={<MyChannelVideos />} />
-            <Route path='playlists' element='' />
-            <Route path='tweets' element='' />
-            <Route path='subscribed' element='' />
+            <Route path='playlists' element={''} />
+            <Route path='tweets' element={''} />
+            <Route path='subscribed' element={''} />
           </Route>
         </Route>
       </Routes>
