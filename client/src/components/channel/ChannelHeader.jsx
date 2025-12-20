@@ -13,7 +13,11 @@ function ChannelHeader({
     return (
         <div className='h-full m-5 overflow-x-hidden'>
             <section className='w-full'>
+                {
+                coverImage? 
                 <img src={coverImage} alt={username} className='sm:h-60 w-full object-cover rounded-2xl' />
+                : <div className="sm:h-40 h-28 w-full border-slate-600 border-b bg-black"></div>
+                }
             </section>
 
             <section className='sm:px-5 p-4 flex sm:flex-row flex-col sm:items-end items-start w-full sm:gap-4 m-8'>

@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Input } from './index'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { userLogin, getCurrentUser, createAccount } from '../store/slices/authSlice'
 import { toast } from 'react-hot-toast'
 import { closeLoginModal } from '../store/slices/uiSlice';
+import LoginSkeleton from '../skeleton/LoginSkeleton.jsx'
 
 function Login() {
 
@@ -13,6 +14,7 @@ function Login() {
 
   const navigation = useNavigate()
   const dispatch = useDispatch()
+  const loading = useSelector(state => state.auth?.loading)
   const [formState, setFormState] = useState("login")
 
   const submit = async (data) => {
@@ -52,6 +54,10 @@ function Login() {
   const toggleFormState = (state) => {
     setFormState(state)
     reset()
+  }
+
+  if (loading) {
+    return <LoginSkeleton />
   }
 
   return (
