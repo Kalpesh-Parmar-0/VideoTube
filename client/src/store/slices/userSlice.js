@@ -33,6 +33,40 @@ export const getWatchHistory = createAsyncThunk("getWatchHistory", async()=> {
     }
 })
 
+export const updateUserDetails = createAsyncThunk("updateUserDetails", async(data) => {
+    try {
+        const res = await axiosInstance("/users/update-user", data)
+        toast.success("Update details successfully!!")
+        return res.data.data;
+    } catch (error) {
+        toast.error(error?.response?.data?.error)
+        throw error
+    }
+})
+
+export const updateAvatar = createAsyncThunk("updateAvatar", async(avatar)=> {
+    try {
+        const res = await axiosInstance("/users/update-avatar", avatar)
+        toast.success("Update avatar successfully!!")
+        return res.data.data;
+    } catch (error) {
+        console.log(error);
+        toast.error(error?.response?.data?.error)
+        throw error
+    }
+})
+
+export const updateCoverImg = createAsyncThunk("updateCoverImg", async(coverImage)=> {
+    try {
+        const res = await axiosInstance("/users/update-coverImg", coverImage)
+        toast.success("update coverImage successfully!!")
+        return res.data.data
+    } catch (error) {
+        toast.error(error?.response?.data?.error)
+        throw error
+    }
+})
+
 const userSlice = createSlice({
     name: "user",
     initialState,
@@ -54,6 +88,33 @@ const userSlice = createSlice({
         builder.addCase(getWatchHistory.fulfilled, (state, action) => {
             state.loading = false;
             state.history = action.payload;
+        })
+
+        builder.addCase(updateUserDetails.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(updateUserDetails.fulfilled, (state, action)=> {
+            state.loading = false
+            state.profileData = action.payload
+        })
+
+        builder.addCase(updateAvatar.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(updateAvatar.fulfilled, (state, action)=> {
+            state.loading = false
+            state.profileData = action.payload
+        })
+
+        builder.addCase(updateCoverImg.pending, (state)=> {
+            state.loading = true
+        })
+
+        builder.addCase(updateCoverImg.fulfilled, (state, action) => {
+            state.loading = false
+            state.profileData = action.payload
         })
     }
 })
