@@ -34,7 +34,7 @@ function HomePage() {
                             title={video.title}
                             thumbnail={video.thumbnail?.url}
                             views={video.views}
-                            channelId={video.owner}
+                            // channelId={video.owner}
                             channelName={video.ownerDetails.username}
                             createdAt={video.createdAt}
                         />

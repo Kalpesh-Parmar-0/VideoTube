@@ -3,7 +3,7 @@ import { ChannelHeader } from "../components/index"
 import { useDispatch, useSelector } from 'react-redux'
 import { userChannelProfile } from '../store/slices/userSlice'
 
-function MyChannel() {
+function Channel() {
 
     const dispatch = useDispatch()
     const channel = useSelector((state) => state.auth?.userData)
@@ -31,4 +31,4 @@ function MyChannel() {
     )
 }
 
-export default MyChannel
+export default Channel

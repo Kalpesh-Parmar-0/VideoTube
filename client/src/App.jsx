@@ -6,8 +6,8 @@ import Login from './components/Login'
 import { Toaster } from 'react-hot-toast'
 import { useDispatch, useSelector } from 'react-redux'
 import { refreshAndFetchUser } from './store/slices/authSlice'
-import MyChannel from './pages/MyChannel'
-import MyChannelVideos from './pages/MyChannelVideos'
+import Channel from './pages/Channel'
+import ChannelVideos from './pages/ChannelVideos'
 import History from './pages/History'
 
 // import Navbar from './components/Navbar'
@@ -26,8 +26,8 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route path='' element={<HomePage />} />
-          <Route path='/my-content' element={<MyChannel />}>
-            <Route path='videos' element={<MyChannelVideos />} />
+          <Route path='/channel/:username' element={<Channel />}>
+            <Route path='videos' element={<ChannelVideos />} />
             <Route path='playlists' element={''} />
             <Route path='tweets' element={''} />
             <Route path='subscribed' element={''} />

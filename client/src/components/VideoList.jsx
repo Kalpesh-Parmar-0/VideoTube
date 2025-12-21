@@ -21,7 +21,7 @@ function VideoList({
                 </div>
 
                 <div>
-                    <Link to={`/${channelId}`}>
+                    <Link to={`/channel/${channelName}`}>
                         <img src={avatar} alt="" />
 
                     </Link>

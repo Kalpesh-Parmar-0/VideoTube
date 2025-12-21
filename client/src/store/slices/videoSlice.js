@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axiosInstance from "../../helpers/axiosInstance";
 import toast from 'react-hot-toast';
+import { BASE_URL } from "../../constants";
 
 const initialState = {
     loading: false,
@@ -9,8 +10,8 @@ const initialState = {
 
 export const getAllVideos = createAsyncThunk("getVideos", async ({ userId, sortBy, sortType, query, page, limit }) => {
     try {
-        const baseURL = "http://localhost:3000/api/v1/videos"
-        const url = new URL(baseURL)
+        // const baseURL = "http://localhost:3000/api/v1/videos"
+        const url = new URL(`${BASE_URL}/videos`)
 
         if (userId) url.searchParams.set("userId", userId)
         if (query) url.searchParams.set("query", query)
@@ -21,7 +22,7 @@ export const getAllVideos = createAsyncThunk("getVideos", async ({ userId, sortB
             url.searchParams.set("sortType", sortType)
         }
 
-        const res = await axiosInstance.get(url.toString())
+        const res = await axiosInstance.get(url)
         console.log(res.data.data.docs);
 
         return res.data.data

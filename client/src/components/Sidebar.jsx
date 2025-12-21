@@ -24,7 +24,11 @@ import { MdPodcasts } from "react-icons/md";
 import { BiVideo } from "react-icons/bi";
 import SidebarSection from "./SidebarSection";
 
+import { useSelector } from "react-redux";
+
 function Sidebar() {
+
+    const username = useSelector((state)=> state.auth?.userData?.username)
 
     const homeItems = [
         {
@@ -50,7 +54,7 @@ function Sidebar() {
             id: 1,
             name: "Your Channel",
             icon: <PiUserSquareThin />,
-            path: "/my-content"
+            path: `/channel/${username}`
         },
         {
             id: 2,

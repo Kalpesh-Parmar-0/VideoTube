@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from '../index'
 import { NavLink } from 'react-router-dom'
 
@@ -9,14 +9,25 @@ function ChannelHeader({
     fullName,
     subscribersCount,
     subscribedCount,
+    isSubscribed,
 }) {
+
+    const [toogleSubscribe, setToogleSubscribe] = useState("")
+    if (isSubscribed) {
+        setToogleSubscribe(true)
+    }
+
+    useEffect(()=> {
+
+    }, [toogleSubscribe])
+
     return (
         <div className='h-full m-5 overflow-x-hidden'>
             <section className='w-full'>
                 {
                 coverImage? 
-                <img src={coverImage} alt={username} className='sm:h-60 w-full object-cover rounded-2xl' />
-                : <div className="sm:h-40 h-28 w-full border-slate-600 border-b bg-black"></div>
+                (<img src={coverImage} alt={username} className='sm:h-60 w-full object-cover rounded-2xl' />)
+                : (<div className="sm:h-40 h-28 w-full border-slate-600 border-b bg-black"></div>)
                 }
             </section>
 
@@ -39,26 +50,26 @@ function ChannelHeader({
                         </div>
                     </div>
                     <div>
-                        <Button className='border-slate-500 mr-5'>Edit</Button>
+                        <Button className='border-slate-500 hover:scale-110 transition-all text-black font-bold px-4 py-1 bg-purple-300 '>{toogleSubscribe ? "subscribed": "subscribe"}</Button>
                     </div>
                 </div>
             </section>
 
             <section className='w-150 flex justify-evenly items-center border-b-2 border-slate-300 text-sm sm:text-base sm:mt-4 md:mt-0 mt-2'>
                 <NavLink
-                    to={"/my-content/videos"}
+                    to={`/channel/${username}/videos`}
                     className={({ isActive }) => isActive ? 'border-b-2' : 'text-stone-400'}
                 >Videos</NavLink>
                 <NavLink
-                    to={"/my-content/playlists"}
+                    to={`/channel/${username}/playlists`}
                     className={({ isActive }) => isActive ? 'border-b-2' : 'text-stone-400'}
                 >Playlists</NavLink>
                 <NavLink
-                    to={"/my-content/subscribed"}
+                    to={`/channel/${username}/subscribed`}
                     className={({ isActive }) => isActive ? 'border-b-2' : 'text-stone-400'}
                 >Subscribed</NavLink>
                 <NavLink
-                    to={"/my-content/tweets"}
+                    to={`/channel/${username}/tweets`}
                     className={({ isActive }) => isActive ? 'border-b-2' : 'text-stone-400'}
                 >Tweets</NavLink>
             </section>

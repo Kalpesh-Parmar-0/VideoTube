@@ -4,10 +4,10 @@ import { getAllVideos } from '../store/slices/videoSlice'
 import { VideoList } from '../components/index'
 import { Link } from 'react-router-dom'
 
-function MyChannelVideos() {
+function ChannelVideos() {
     const dispatch = useDispatch()
     const videos = useSelector((state) => state.video?.videos?.docs)
-    const userId = useSelector((state) => state.auth?.userData?._id)
+    const userId = useSelector((state) => state.user?.profileData?._id)
 
     useEffect(() => {
         dispatch(getAllVideos({ userId }))
@@ -28,6 +28,7 @@ function MyChannelVideos() {
                         title={video.title}
                         thumbnail={video.thumbnail?.url}
                         createdAt={video.createdAt}
+                        views={video.views}
                     />
                 </Link>
             ))}
@@ -35,4 +36,4 @@ function MyChannelVideos() {
     )
 }
 
-export default MyChannelVideos
+export default ChannelVideos

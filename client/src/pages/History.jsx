@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getWatchHistory } from '../store/slices/userSlice';
 import HomeSkeleton from '../skeleton/HomeSkeleton';
 import { Link } from 'react-router-dom';
-import { VideoList } from '../components';
+import { Container, VideoList } from '../components';
 
 function History() {
     const loading = useSelector((state)=> state.user?.loading);
@@ -21,7 +21,7 @@ function History() {
 
     if (videos && videos.length > 0) {
         return (
-            <>
+            <Container>
             <div className='grid lg:grid-cols-3 sm:grid-cols-2 text-white   '>
                 {videos.map((video)=> (
                     <Link
@@ -29,16 +29,18 @@ function History() {
                         key={video._id}
                     >
                         <VideoList 
-                            avatar={video.avatar?.url}
+                            avatar={video.owner?.avatar?.url}
                             duration={video.duration}
                             title={video.title}
                             thumbnail={video.thumbnail?.url}
                             createdAt={video.createdAt}
+                            views={video.views}
+                            channelName={video.owner.username}
                         />
                     </Link>
                 ))}
             </div>
-            </>
+            </Container>
         )
     }
 
