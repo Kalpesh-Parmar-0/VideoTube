@@ -1,6 +1,6 @@
 import React from 'react'
 import { formateDuration, timeAgo } from '../helpers/timeAgo'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function VideoList({
     thumbnail,
@@ -12,6 +12,7 @@ function VideoList({
     createdAt,
     channelId
 }) {
+    const navigate = useNavigate()
     return (
         <>
             <div>
@@ -21,10 +22,15 @@ function VideoList({
                 </div>
 
                 <div>
-                    <Link to={`/channel/${channelName}`}>
-                        <img src={avatar} alt="" />
-
-                    </Link>
+                    <img
+                        src={avatar}
+                        alt=""
+                        onClick={(e) => {
+                            e.stopPropagation()
+                            if (channelName) navigate(`/channel/${channelName}`)
+                        }}
+                        style={{ cursor: 'pointer' }}
+                    />
 
                     <div>
                         <h2>{title}</h2>
@@ -33,7 +39,15 @@ function VideoList({
                             <span>{timeAgo(createdAt)} years ago</span>
                         </div>
                         {channelName && (
-                            <h2>{channelName}</h2>
+                            <h2
+                                onClick={(e) => {
+                                    e.stopPropagation()
+                                    navigate(`/channel/${channelName}`)
+                                }}
+                                style={{ cursor: 'pointer' }}
+                            >
+                                {channelName}
+                            </h2>
                         )}
                     </div>
                 </div>
