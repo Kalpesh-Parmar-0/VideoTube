@@ -11,7 +11,7 @@ const createTweet = asyncHandler(async (req, res) => {
         throw new ApiError(400, "content is required");
     }
 
-    const tweet = Tweet.create({
+    const tweet = await Tweet.create({
         content,
         owner: req.user?._id,
     });
@@ -99,6 +99,8 @@ const getUserTweets = asyncHandler(async(req, res) => {
         throw new ApiError(400, "Invalid userId")
     }
 
+    const currentUserId = req.user?._id ? new mongoose.Types.ObjectId(req.user._id) : null;
+
     const tweets = await Tweet.aggregate([
         {
             $match: {
@@ -146,7 +148,7 @@ const getUserTweets = asyncHandler(async(req, res) => {
                 },
                 isLiked: {
                     $cond: {
-                        $if: {$in: [req.user?._id, "$likeDetails.likedBy"]},
+                        if: { $in: [currentUserId, "$likeDetails.likedBy"] },
                         then: true,
                         else: false
                     }
