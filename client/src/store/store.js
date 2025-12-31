@@ -3,6 +3,10 @@ import authSliceReducer from "./slices/authSlice.js";
 import uiReducer from "./slices/uiSlice.js"
 import userSliceReducer from "./slices/userSlice.js";
 import videoSliceReducer from "./slices/videoSlice.js";
+import subscriptionSlice from "./slices/subscriptionSlice.js";
+import likeSlice from "./slices/likeSlice.js";
+import tweetSlice from "./slices/tweetSlice.js";
+import commentSlice from "./slices/commentSlice.js";
 
 const store = configureStore({
     reducer: {
@@ -10,6 +14,10 @@ const store = configureStore({
         ui: uiReducer,
         user: userSliceReducer,
         video: videoSliceReducer,
+        subscription: subscriptionSlice,
+        like: likeSlice,
+        tweet: tweetSlice,
+        comment: commentSlice,
     },
 });
 
