@@ -7,19 +7,22 @@ import { Link } from 'react-router-dom'
 function ChannelVideos() {
     const dispatch = useDispatch()
     const videos = useSelector((state) => state.video?.videos?.docs)
+    const loading = useSelector((state) => state.video?.loading)
     const userId = useSelector((state) => state.user?.profileData?._id)
 
     useEffect(() => {
         dispatch(getAllVideos({ userId }))
     }, [dispatch, userId])
 
-    if (videos?.length === 0) return <h2>No videos found</h2>
+    if (loading) return <h2>Loading...</h2>
+
+    if (!videos || videos.length === 0) return <h2>No videos found</h2>
 
     return (
         <div className='grid lg:grid-cols-3 sm:grid-cols-2 gap-4 p-4'>
             {videos?.map((video) => (
                 <Link
-                    to={`watch/${video._id}`}
+                    to={`/watch/${video._id}`}
                     key={video._id}
                 >
                     <VideoList

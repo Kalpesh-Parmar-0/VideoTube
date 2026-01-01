@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { refreshAndFetchUser } from './store/slices/authSlice'
 import Channel from './pages/Channel'
 import ChannelVideos from './pages/ChannelVideos'
+import ChannelTweets from './pages/ChannelTweets'
 import History from './pages/History'
 
 // import Navbar from './components/Navbar'
@@ -29,7 +30,7 @@ function App() {
           <Route path='/channel/:username' element={<Channel />}>
             <Route path='videos' element={<ChannelVideos />} />
             <Route path='playlists' element={''} />
-            <Route path='tweets' element={''} />
+            <Route path='tweets' element={<ChannelTweets />} />
             <Route path='subscribed' element={''} />
           </Route>
           <Route path='/history' element={<History />}></Route>

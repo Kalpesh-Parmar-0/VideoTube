@@ -12,14 +12,11 @@ function ChannelHeader({
     isSubscribed,
 }) {
 
-    const [toogleSubscribe, setToogleSubscribe] = useState("")
-    if (isSubscribed) {
-        setToogleSubscribe(true)
-    }
+    const [toggleSubscribe, setToggleSubscribe] = useState(Boolean(isSubscribed))
 
     useEffect(()=> {
-
-    }, [toogleSubscribe])
+        setToggleSubscribe(Boolean(isSubscribed))
+    }, [isSubscribed])
 
     return (
         <div className='h-full m-5 overflow-x-hidden'>
@@ -50,26 +47,26 @@ function ChannelHeader({
                         </div>
                     </div>
                     <div>
-                        <Button className='border-slate-500 hover:scale-110 transition-all text-black font-bold px-4 py-1 bg-purple-300 '>{toogleSubscribe ? "subscribed": "subscribe"}</Button>
+                        <Button className='border-slate-500 hover:scale-110 transition-all text-black font-bold px-4 py-1 bg-purple-300 '>{toggleSubscribe ? "subscribed": "subscribe"}</Button>
                     </div>
                 </div>
             </section>
 
             <section className='w-150 flex justify-evenly items-center border-b-2 border-slate-300 text-sm sm:text-base sm:mt-4 md:mt-0 mt-2'>
                 <NavLink
-                    to={`/channel/${username}/videos`}
+                    to={username ? `/channel/${username}/videos` : '#'}
                     className={({ isActive }) => isActive ? 'border-b-2' : 'text-stone-400'}
                 >Videos</NavLink>
                 <NavLink
-                    to={`/channel/${username}/playlists`}
+                    to={username ? `/channel/${username}/playlists` : '#'}
                     className={({ isActive }) => isActive ? 'border-b-2' : 'text-stone-400'}
                 >Playlists</NavLink>
                 <NavLink
-                    to={`/channel/${username}/subscribed`}
+                    to={username ? `/channel/${username}/subscribed` : '#'}
                     className={({ isActive }) => isActive ? 'border-b-2' : 'text-stone-400'}
                 >Subscribed</NavLink>
                 <NavLink
-                    to={`/channel/${username}/tweets`}
+                    to={username ? `/channel/${username}/tweets` : '#'}
                     className={({ isActive }) => isActive ? 'border-b-2' : 'text-stone-400'}
                 >Tweets</NavLink>
             </section>
