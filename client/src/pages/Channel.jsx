@@ -29,7 +29,9 @@ function Channel() {
                 subscribersCount={profile?.subscribersCount || 0}
             />
 
-            <Outlet />
+            <div className="overflow-y-scroll h-[32rem] sm:h-96 mb-20 sm:mb-0">
+                <Outlet />
+            </div>
         </div>
     )
 }

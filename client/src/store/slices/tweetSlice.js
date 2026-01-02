@@ -11,6 +11,7 @@ export const createTweet = createAsyncThunk("createTweet", async(content) => {
     try{
         const res = await axiosInstance.post("/tweet", content)
         console.log(res.data.data);
+        toast.success(res.data?.message)
         return res.data.data
     } catch (error) {
         toast.error(error?.response?.data?.error)
@@ -64,7 +65,12 @@ const tweetSlice = createSlice({
             state.loading = false;
             state.tweets = action.payload;
         });
+        builder.addCase(createTweet.fulfilled, (state, action) => {
+            state.tweets.unshift(action.payload)
+        })
     },
 });
+
+export const {addTweet} = tweetSlice.actions
 
 export default tweetSlice.reducer;

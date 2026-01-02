@@ -5,6 +5,7 @@ import Navbar from './Navbar';
 import Sidebar from './Sidebar'
 import ChannelHeader from './channel/ChannelHeader';
 import VideoList from './VideoList';
+import Tweet from './Tweet';
 
 export {
     Button,
@@ -13,5 +14,6 @@ export {
     Navbar,
     Sidebar,
     ChannelHeader,
-    VideoList
+    VideoList,
+    Tweet
 }

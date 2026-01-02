@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { BiSolidLike, BiSolidDislike } from 'react-icons/bi'
 import {toggleTweetLike} from "../store/slices/likeSlice"
 import { timeAgo } from '../helpers/timeAgo'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 function TweetList({
     tweetId,
@@ -10,13 +10,14 @@ function TweetList({
     username,
     createdAt,
     content,
-    likesCount,
+    likesCount=0,
     isLiked
 }) {
 
     const dispatch = useDispatch()
     const [localIsLiked, setLocalIsLiked] = useState(isLiked)
     const [localLikesCount, setLocalLikesCount] = useState(likesCount)
+    const avatar2 = useSelector(state => state.user?.profileData?.avatar.url)
 
     const handleLikeToggle = () => {
         if(localIsLiked) {
@@ -33,7 +34,7 @@ function TweetList({
         <div>
             <div>
                 <img 
-                    src={avatar}
+                    src={avatar || avatar2}
                 />
             </div>
             <div>
