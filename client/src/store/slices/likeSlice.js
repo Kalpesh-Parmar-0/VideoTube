@@ -42,7 +42,7 @@ export const toggleTweetLike = createAsyncThunk("toggleTweetLike", async(tweetId
 
 export const getLikedVideos = createAsyncThunk("getLikedVideos", async()=> {
     try{
-        const res = await axiosInstance.post('/likes/videos/')
+        const res = await axiosInstance.get('/likes/videos/')
         console.log(res.data.data);
         return res.data.data
     } catch (error) {

@@ -10,6 +10,7 @@ import Channel from './pages/Channel'
 import ChannelVideos from './pages/ChannelVideos'
 import ChannelTweets from './pages/ChannelTweets'
 import History from './pages/History'
+import LikedVideos from './pages/LikedVideos'
 
 // import Navbar from './components/Navbar'
 
@@ -34,6 +35,7 @@ function App() {
             <Route path='subscribed' element={''} />
           </Route>
           <Route path='/history' element={<History />}></Route>
+          <Route path='/liked-videos' element={<LikedVideos />}></Route>
         </Route>
       </Routes>
 
