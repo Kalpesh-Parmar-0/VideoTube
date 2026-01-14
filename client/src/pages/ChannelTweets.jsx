@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import TweetList from '../components/TweetList'
 import { getUserTweets } from '../store/slices/tweetSlice'
-import { Tweet } from '../components'
+import { TweetAndComment } from '../components'
 
 function ChannelTweets() {
 
@@ -24,7 +24,7 @@ function ChannelTweets() {
 
   return (
     <>
-        {authId === userId && <Tweet />}
+        {authId === userId && <TweetAndComment tweet= {true} />}
         {
             tweets?.map((tweet) => (
                 <TweetList 

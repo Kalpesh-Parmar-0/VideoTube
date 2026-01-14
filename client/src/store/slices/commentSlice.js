@@ -43,7 +43,7 @@ export const deleteAcomment = createAsyncThunk("deleteAcomment", async({commnetI
 
 export const getVideoComments = createAsyncThunk("getVideoComments", async({videoId, page, limit})=> {
 
-    const url = new URL(`${BASE_URL}/${videoId}`)
+    const url = new URL(`${BASE_URL}/comment/${videoId}`)
     if (page) url.searchParams.set('page',page)
     if (limit) url.searchParams.set('limit', limit)
 
@@ -72,6 +72,10 @@ const commentSlice = createSlice({
                 state.comments = action.payload
             }
         )
+
+        builder.addCase(createAcomment.fulfilled, (state, action) => {
+            state.comments.unshift(action.payload)
+        })
     }
 })
 
